@@ -7,10 +7,10 @@ permalink: /about/
 Long before I made a living writing code, I was a nuclear chemist. I wrote a
 [thesis](https://escholarship.org/uc/item/9td288h6) and everything. Back then
 having a GitHub or StackOverflow account was an anomaly. Sharing code online?
-Putting myself out there? That sounded terrifying, and in some ways is it still
-does. Since then, I've decided to make my career in software development. To
-me that means waking up everyday and being excited about the work I do and
-proud of the code I write. It's about putting myself out there and sharing my
+Putting myself out there? That sounded terrifying, and in some ways it still
+does. Since then, I've decided to make my career in software development. To me
+that means waking up everyday and being excited about the work I do and proud
+of the code I write. It's about putting myself out there and sharing my
 experiences. That's why I'm here.
 
 I program in Python, C++, and C#. I'm learning Scala and how to think like a
