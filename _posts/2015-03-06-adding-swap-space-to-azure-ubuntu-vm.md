@@ -6,8 +6,10 @@ modified: 2015-01-30
 tags: [Ubuntu, Azure]
 ---
 
-So a few weeks ago, I was working on building LLVM/Clang from source (a story
-for another time) and in the process I kept getting these errors:
+So a few weeks ago, I was playing around with building LLVM/Clang from source
+on my Azure hosted Ubuntu VM (a story for another time). The process would take
+a few hours, so I'd start it running in the evening, log out. But when I came
+back to check up on it in the morning, I kept getting these errors:
 
 {% highlight bash %}
 Linking CXX executable ../../../../bin/clang
