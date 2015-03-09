@@ -60,3 +60,7 @@ Swap:         7.0G         0B       7.0G
 {% endhighlight %}
 
 That's much better.
+
+EDIT: ... or I guess I could have just snuck into Microsoft's server farm and
+[connected a light timer to the rack that was hosting my
+VM](http://www.xkcd.com/1495/).
