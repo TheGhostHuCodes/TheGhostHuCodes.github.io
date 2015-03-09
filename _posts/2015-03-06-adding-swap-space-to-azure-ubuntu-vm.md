@@ -2,7 +2,7 @@
 layout: post
 title: Adding Swap space to an Ubuntu server in Azure
 excerpt: "The one in which I add some swap space to my Azure VM."
-modified: 2015-01-30
+modified: 2015-03-06
 tags: [Ubuntu, Azure]
 ---
 
