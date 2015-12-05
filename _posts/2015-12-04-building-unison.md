@@ -2,7 +2,7 @@
 layout: post
 title: Building Unison
 excerpt: "The one in which I build a version of Unison on Xubuntu to match the one in OSX."
-modified: 2015-12-03
+modified: 2015-12-04
 tags: [Unison, OSX, Xubuntu]
 ---
 
