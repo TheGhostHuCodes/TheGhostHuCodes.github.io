@@ -32,29 +32,29 @@ Azure](http://azure.microsoft.com/en-us/documentation/articles/virtual-machines-
 I ended up just provisioning the VM with a password, and later I generated some
 SSH keys like so:
 
-{% highlight bash %}
+```bash
 ssh-keygen -t rsa -b 4096
 ssh-copy-id -i id_rsa.pub <user>@<DNS name>
-{% endhighlight %}
+```
 
 If you end up going my route, don't forget to disable password login to the
 machine when you're all done. You can do that by editing your `sshd_config`
 file.
 
-{% highlight bash %}
+```bash
 sudo vi /etc/ssh/sshd_config
-{% endhighlight %}
+```
 
 changing the line:
 
-{% highlight bash %}
+```bash
 PasswordAuthentication yes
-{% endhighlight %}
+```
 
 to read:
 
-{% highlight bash %}
+```bash
 PasswordAuthentication no
-{% endhighlight %}
+```
 
 Finally, you'll want to restart the VM so that your changes will take effect.

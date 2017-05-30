@@ -19,18 +19,18 @@ searching all over the Internet for reasons why an esoteric programming
 language won't build on your machine (Ubuntu 14.04 in my case). Let's make sure
 we have all of the prerequisites:
 
-{% highlight console %}
+```shell
 sudo apt-get install build-essential libtool autotools-dev automake
-{% endhighlight %}
+```
 
 Then clone over a copy of potion, build it, and test the build:
 
-{% highlight console %}
+```shell
 cd ~
 git clone https://github.com/perl11/potion.git potion-lang
 cd potion-lang
 make
 make test
-{% endhighlight %}
+```
 
 ... and we're off to the races!

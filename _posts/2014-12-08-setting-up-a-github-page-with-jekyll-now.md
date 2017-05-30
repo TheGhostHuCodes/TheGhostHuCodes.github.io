@@ -17,20 +17,20 @@ haven't worked with ruby gems very much, and as it turns out I had some
 [prerequisites](http://michaelchelen.net/81fa/install-jekyll-2-ubuntu-14-04/)
 to install on my Ubuntu 14.04 machine:
 
-{% highlight console %}
+```shell
 sudo apt-get install ruby ruby-dev make gcc nodejs
-{% endhighlight %}
+```
 
 after that things went more smoothly:
 
-{% highlight console %}
+```shell
 sudo gem install github-pages
 cd <repo directory>
 jekyll serve --watch
-{% endhighlight %}
+```
 
 and your locally built website should be served up at:
 
-{% highlight console %}
+```shell
 http://0.0.0.0:4000
-{% endhighlight %}
+```

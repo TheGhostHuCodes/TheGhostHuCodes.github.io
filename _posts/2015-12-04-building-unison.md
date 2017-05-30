@@ -15,29 +15,30 @@ available in homebrew. In my case this was the 2.48.3 version of Unison.
 
 First we'll need some prerequisites. Unison is written in OCaml.
 
-{% highlight bash %}
+```bash
 sudo apt-get install ocaml liblablgtk2-ocaml-dev
-{% endhighlight %}
+```
 
 Next, we'll set up a temporary directory and grab a copy of the version of
 Unison that we need.
 
-{% highlight bash %}
+```bash
 mkdir tempBuild
 cd tempBuild
-wget http://www.seas.upenn.edu/~bcpierce/unison//download/releases/stable/unison-2.48.3.tar.gz
+wget "http://www.seas.upenn.edu/"\
+"~bcpierce/unison/download/releases/stable/unison-2.48.4.tar.gz"
 tar xvfz unison-2.48.3.tar.gz
-{% endhighlight %}
+```
 
 Finally, we'll go into that directory, build unison, and copy it over to a
 directory in my path.
 
-{% highlight bash %}
+```bash
 cd unison-2.48.3
 make UISTYLE=text
 make unison
 mv unison /usr/local/bin/
-{% endhighlight %}
+```
 
 Note, I chose to put unison in `/usr/local/bin/` because this path is searched
 when I start a terminal in non-interactive mode. This is important because when

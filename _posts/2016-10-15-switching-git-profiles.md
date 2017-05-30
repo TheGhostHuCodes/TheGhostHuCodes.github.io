@@ -24,7 +24,7 @@ aliases](http://blogs.atlassian.com/2014/10/advanced-git-aliases/), is shell out
 to bash and from there the world is your oyster! For example, I added the
 following to my `~/.gitconfig` file:
 
-{% highlight bash %}
+```bash
 [alias]
   athome = "!f() { \
     git config user.name \"Yung-Jin (Joey) Hu\"; \
@@ -38,12 +38,12 @@ following to my `~/.gitconfig` file:
     git config user.name ; \
     git config user.email ; \
     }; f"
-{% endhighlight %}
+```
 
 Now I've got these awesome git aliases that let me check my current profile (`git whoami`) and
 switch user profiles easily (`git athome` and `git atwork`) within a git repo:
 
-{% highlight bash %}
+```bash
 $ git whoami
 Joey Hu
 myemail@work.com
@@ -55,4 +55,4 @@ $ git atwork
 $ git whoami
 Joey Hu
 myemail@work.com
-{% endhighlight %}
+```

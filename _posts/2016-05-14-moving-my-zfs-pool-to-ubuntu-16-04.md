@@ -18,28 +18,28 @@ Although I've been very happy with ZFS since then, it's always been kind of a
 hassle to get things working again when I update my OS... that is, until now.
 How hard is it to mount my ZFS pool in Ubuntu 16.04? 
 
-{% highlight bash %}
+```bash
 $ sudo apt-get install zfsutils-linux
 $ sudo zfs mount -vO -a
-{% endhighlight %}
+```
 
 The `-vO` switch executes an overlay mount, which I need since I'm mounting my
 ZFS `/home` over the existing `/home` directory on my SSD. After everything is
 installed I can:
 
-{% highlight bash %}
+```bash
 $ sudo zfs mount
 tank                            /tank
 tank/home                       /home
-{% endhighlight %}
+```
 
 to make sure that the ZFS filesystem was mounted correctly.
 
 To continue to mount the ZFS filesystem upon reboot we need to open up
 `/etc/rc.local` and add the following line to the file:
 
-{% highlight bash %}
+```bash
 zfs mount -vO -a
-{% endhighlight %}
+```
 
 That's it? That's it. Log out, log back in and we're off to the races!

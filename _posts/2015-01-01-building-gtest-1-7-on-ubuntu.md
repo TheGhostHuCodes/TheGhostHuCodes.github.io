@@ -20,9 +20,9 @@ source from the [googletest website](https://code.google.com/p/googletest/) and
 build our own! Of course, along the way we're going to build and run the
 tests for googletest too. How meta. We're going to need `cmake`.
 
-{% highlight console %}
+```shell
 $ sudo apt-get install cmake
-{% endhighlight %}
+```
 
 Unzip the googletest source in your directory of choice. I'm a big fan of using
 `/usr/local/src` but it's really a personal preference. Change to that
@@ -30,20 +30,20 @@ directory and run the following cmake command to build the googletest static
 libraries in release mode and the googletest tests (case matters here for the
 cmake switches):
 
-{% highlight console %}
+```shell
 $ sudo cmake -DCMAKE_BUILD_TYPE=RELEASE -Dgtest_build_tests=ON
 $ sudo make
-{% endhighlight %}
+```
 
 Next we launch the tests like so:
 
-{% highlight console %}
+```shell
 $ make test
-{% endhighlight %}
+```
 
 and you should see output that looks something like this:
 
-{% highlight console %}
+```shell
 Running tests...
 Test project /usr/local/src/gtest-1.7.0
      Start  1: gtest-death-test_test
@@ -53,33 +53,33 @@ Test project /usr/local/src/gtest-1.7.0
      Start  3: gtest-filepath_test
 3/41 Test  #3: gtest-filepath_test ................   Passed    0.01 sec
 ...
-{% endhighlight %}
+```
 
 Make sure that all of the tests pass. Now it's time to toss your compiled
 libraries somewhere that cmake will be able to find them:
 
-{% highlight console %}
+```shell
 $ sudo cp libgtest* /usr/lib
-{% endhighlight %}
+```
 
 We're going to need to add this line to our .zshrc (or similar shell) file so
 that cmake will be able to find the googletest headers.
 
-{% highlight bash %}
+```shell
 export GTEST_ROOT="/usr/local/src/gtest-1.7.0"
-{% endhighlight %}
+```
 
 How did I know this? Well if you look in the file
 `/usr/share/cmake-2.8/Modules/FindGTest.cmake` you will find the following
 section:
 
-{% highlight CMake %}
+```cmake
 find_path(GTEST_INCLUDE_DIR gtest/gtest.h
     HINTS
         $ENV{GTEST_ROOT}/include
         ${GTEST_ROOT}/include
 )
-{% endhighlight %}
+```
 
 Because we're building googletest from source in an unconventional directory,
 we'll need to give cmake a hint as to where the googletest headers are.
@@ -87,9 +87,9 @@ we'll need to give cmake a hint as to where the googletest headers are.
 If you didn't want to add the environment variable, you could also have passed
 the location of the googletest headers as a switch to cmake:
 
-{% highlight CMake %}
+```cmake
 $ cmake -DGTEST_ROOT="/usr/local/src/gtest-1.7.0/"
-{% endhighlight %}
+```
 
 Now we're all set. You can check everything is working by going back to
 [this](http://www.thebigblob.com/getting-started-with-google-test-on-ubuntu/)
