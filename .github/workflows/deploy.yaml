@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo and submodule theme
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install zola
+        run: |
+          wget https://github.com/getzola/zola/releases/download/v0.21.0/zola-v0.21.0-x86_64-unknown-linux-gnu.tar.gz
+          tar -xvzf zola-v0.21.0-x86_64-unknown-linux-gnu.tar.gz
+          mv zola /usr/local/bin/
+
+      - name: Build static site
+        run: zola build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
