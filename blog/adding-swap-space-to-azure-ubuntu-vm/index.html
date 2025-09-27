@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src-attr 'unsafe-inline'">
+
+    <title>Adding Swap space to an Ubuntu server in Azure | The Ghost Hu Codes</title>
+
+    <link rel="preload" href="https://theghosthucodes.github.io/fonts/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="https://theghosthucodes.github.io/fonts/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://theghosthucodes.github.io/css/style.css?h=fd30ebca55fd38ab02dd">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦀</text></svg>">
+    <script src="https://theghosthucodes.github.io/js/auto-close-popover-on-resize.js?h=4ef87d6fc7b98b22e044" defer></script>
+    <script src="https://theghosthucodes.github.io/js/copy-code-to-clipboard.js?h=6aac77c47d552a0ac847" defer></script>
+    <script src="https://theghosthucodes.github.io/js/theme-switcher.js?h=c7049c13f5599d2609bf" defer></script>
+
+    <link rel="canonical" href="https://theghosthucodes.github.io/blog/adding-swap-space-to-azure-ubuntu-vm/">
+    
+    <meta name="author" content="Yung-Jin (Joey) Hu">
+    <meta name="description" content="The one in which I add some swap space to my Azure VM.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#211f1a">
+    <meta name="color-scheme" content="dark">
+
+    <meta property="og:title" content="Adding Swap space to an Ubuntu server in Azure">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://theghosthucodes.github.io/blog/adding-swap-space-to-azure-ubuntu-vm/">
+    <meta property="og:description" content="The one in which I add some swap space to my Azure VM.">
+    <meta property="og:site_name" content="The Ghost Hu Codes">
+    <meta property="og:updated_time" content="2025-09-27T05:39:00.653967330+00:00">
+    <meta property="article:published_time" content="2015-03-06T00:00:00+00:00">
+    <meta property="article:tag" content="ubuntu">
+    <meta property="article:tag" content="azure">
+</head>
+
+<body class="layout-center">
+    <header class="header">
+        <div class="header-container">
+            <span class="header-logo-container">
+                <a href="https://theghosthucodes.github.io">
+                    <span class="logo">The Ghost Hu Codes</span>
+                </a>
+            </span>
+        </div>
+        <nav class="main-menu" aria-label="Main Menu">
+            <a class="skip-to-content" href="#main">Skip to main content</a>
+            <button class="main-menu-dropdown-button" popovertarget="nav-menu">Menu</button>
+            <ul id="nav-menu" class="main-menu-items" aria-label="Site Navigation" popover>
+                <li><a href="https://theghosthucodes.github.io/blog/">blog</a></li>
+                <li><a href="https://theghosthucodes.github.io/about/">about</a></li>
+                <li><a href="https://theghosthucodes.github.io/tags/">tags</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main id="main">
+        <article class="post content">
+            <header>
+                <h1 class="post-title">
+                    <a href="https://theghosthucodes.github.io/blog/adding-swap-space-to-azure-ubuntu-vm/">Adding Swap space to an Ubuntu server in Azure</a>
+                </h1>
+                <ul class="post-meta">
+                    <li title="Published on 2015-03-06"><time datetime="2015-03-06">2015.03.06</time></li>
+                    <li role="separator" aria-hidden="true">::</li>
+                    <li title="Author">Yung-Jin (Joey) Hu</li>
+                    <li role="separator" aria-hidden="true">::</li>
+                    <li title="202 words"><time datetime="PT2M">2 min</time> read</li>
+                </ul>
+                <div class="post-tags">
+                    <span>#<a rel="tag" href="https://theghosthucodes.github.io/tags/ubuntu/">ubuntu</a></span>
+                    <span>#<a rel="tag" href="https://theghosthucodes.github.io/tags/azure/">azure</a></span>
+                </div>
+            </header>
+
+<p>So a few weeks ago, I was playing around with building LLVM/Clang from source
+on my Azure hosted Ubuntu VM (a story for another time). The process would take
+a few hours, so I'd start it running in the evening, log out. But when I came
+back to check up on it in the morning, I kept getting these errors:</p>
+<pre data-lang="sh" style="background-color:#002b36;color:#839496;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#b58900;">Linking</span><span> CXX executable ../../../../bin/clang
+</span><span style="color:#b58900;">collect2:</span><span> error: ld terminated with signal 9 </span><span style="color:#859900;">[</span><span>Killed</span><span style="color:#859900;">]
+</span><span style="color:#b58900;">make[2]: </span><span style="color:#859900;">*** [</span><span>bin/clang</span><span style="color:#859900;">-</span><span>3.5</span><span style="color:#859900;">]</span><span> Error 1
+</span><span style="color:#b58900;">make[1]: </span><span style="color:#859900;">*** [</span><span>tools/clang/tools/driver/CMakeFiles/clang.dir/all</span><span style="color:#859900;">]</span><span> Error 2
+</span><span style="color:#b58900;">make: </span><span style="color:#859900;">*** [</span><span>all</span><span style="color:#859900;">]</span><span> Error 2
+</span></code></pre>
+<p>Obviously, something bad was happening, so I Googled around and it seems that
+the error often occurs when linking and not having enough memory. But wait, I'm
+sure I have plenty of memory in my Azure VM, 3.5 GB of RAM and some extra Swap
+space to boot.</p>
+<pre data-lang="sh" style="background-color:#002b36;color:#839496;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#b58900;">$</span><span> free</span><span style="color:#268bd2;"> -h
+</span><span>             </span><span style="color:#b58900;">total</span><span>       used       free     shared    buffers     cached
+</span><span style="color:#b58900;">Mem:</span><span>          3.4G       871M       2.5G       416K        78M       600M
+</span><span style="color:#b58900;">-/+</span><span> buffers/cache:       192M       3.2G
+</span><span style="color:#b58900;">Swap:</span><span>           0B         0B         0B
+</span></code></pre>
+<p>OH...</p>
+<p>.. and then I found <a href="http://blogs.msdn.com/b/piyushranjan/archive/2013/05/31/swap-space-in-linux-vm-s-on-windows-azure-part-1.aspx">this blog
+post</a>.</p>
+<p>Really, Microsoft? No Swap space? Not even a little?</p>
+<p>Let's go ahead and use the good 'ol estimate of ~2x my physical RAM for the
+Swap space.</p>
+<pre data-lang="sh" style="background-color:#002b36;color:#839496;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#b58900;">$</span><span> sudo fallocate</span><span style="color:#268bd2;"> -l</span><span> 7g /mnt/swap7gb
+</span><span style="color:#b58900;">$</span><span> sudo chmod 600 /mnt/swap7gb
+</span><span style="color:#b58900;">$</span><span> sudo mkswap /mnt/swap7gb
+</span><span style="color:#b58900;">$</span><span> sudo swapon /mnt/swap7gb
+</span></code></pre>
+<p>And now I have Swap space!</p>
+<pre data-lang="sh" style="background-color:#002b36;color:#839496;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#b58900;">$</span><span> free</span><span style="color:#268bd2;"> -h
+</span><span>             </span><span style="color:#b58900;">total</span><span>       used       free     shared    buffers     cached
+</span><span style="color:#b58900;">Mem:</span><span>          3.4G       871M       2.5G       416K        78M       600M
+</span><span style="color:#b58900;">-/+</span><span> buffers/cache:       192M       3.2G
+</span><span style="color:#b58900;">Swap:</span><span>         7.0G         0B       7.0G
+</span></code></pre>
+<p>That's much better.</p>
+<p>EDIT: ... or I guess I could have just snuck into Microsoft's server farm and
+<a href="http://www.xkcd.com/1495/">connected a light timer to the rack that was hosting my
+VM</a>.</p>
+
+        </article>
+        <nav class="post-navigation">
+            <header class="post-navigation-title">
+                <h2>Read More Posts</h2>
+                <hr>
+            </header>
+            <div class="post-navigation-buttons">
+                <a rel="next" href="https://theghosthucodes.github.io/blog/building-unison/" aria-label="Next article">
+                    <span aria-hidden="true">&lt;&nbsp;[</span>Building Unison<span aria-hidden="true">]</span>
+                </a>
+                <span aria-hidden="true" role="separator">::</span>
+                <a rel="prev" href="https://theghosthucodes.github.io/blog/setting-up-an-ubuntu-server-on-azure/" aria-label="Prev article">
+                    <span aria-hidden="true">[</span>Setting up an Ubuntu server in Azure<span aria-hidden="true">]&nbsp;&gt;</span>
+                </a>
+            </div>
+        </nav>
+    </main>
+    <footer class="footer">
+        <address class="socials">
+            <ul>
+                <li>
+                    <a class="social-link" rel="me" href="https://github.com/TheGhostHuCodes" title="github">
+                        <svg role="img" aria-label="github">
+                            <use aria-hidden="true" href="https://theghosthucodes.github.io/images/social_icons/github.svg#icon" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a class="social-link" rel="me" href="https://www.linkedin.com/in/yungjinhu/" title="linkedin">
+                        <svg role="img" aria-label="linkedin">
+                            <use aria-hidden="true" href="https://theghosthucodes.github.io/images/social_icons/linkedin.svg#icon" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a class="social-link" rel="me" href="https://stackoverflow.com/users/1701171/pythonjin" title="stackoverflow">
+                        <svg role="img" aria-label="stackoverflow">
+                            <use aria-hidden="true" href="https://theghosthucodes.github.io/images/social_icons/stackoverflow.svg#icon" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </address>
+        <p class="copyright">
+            <span>© <time>2025</time> Yung-Jin (Joey) Hu</span>
+            <span>Powered by <a href="https://www.getzola.org">Zola</a></span>
+            <span>Theme by <a href="https://eyalkalderon.com">ebkalderon</a></span>
+        </p>
+    </footer>
+</body>
+
+</html>

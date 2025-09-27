@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>The Ghost Hu Codes - vimscript</title>
+    <subtitle>Senior Software Engineer</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://theghosthucodes.github.io/tags/vimscript/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2014-12-22T00:00:00+00:00</updated>
+    <id>https://theghosthucodes.github.io/tags/vimscript/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Building Potion</title>
+        <published>2014-12-22T00:00:00+00:00</published>
+        <updated>2014-12-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Yung-Jin (Joey) Hu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io/blog/building-potion-lang/"/>
+        <id>https://theghosthucodes.github.io/blog/building-potion-lang/</id>
+        
+        <content type="html" xml:base="https://theghosthucodes.github.io/blog/building-potion-lang/">&lt;p&gt;Part of working through &quot;&lt;a href=&quot;http:&#x2F;&#x2F;learnvimscriptthehardway.stevelosh.com&#x2F;&quot;&gt;Learning VimScript the Hard
+Way&lt;&#x2F;a&gt;&quot; involves sitting down and
+writing your own plugin for the &lt;a href=&quot;http:&#x2F;&#x2F;perl11.org&#x2F;potion&#x2F;&quot;&gt;Potion&lt;&#x2F;a&gt; programming
+language. But before doing that I wanted to play around with the language for a
+little bit. For those not in the know, Potion is a small programming language
+that was written by &quot;_Why the lucky stiff&quot;, before his mysterious
+disappearance from the Internet.&lt;&#x2F;p&gt;
+&lt;p&gt;Again, prerequisites seem to be the difference between a smooth build, and
+searching all over the Internet for reasons why an esoteric programming
+language won&#x27;t build on your machine (Ubuntu 14.04 in my case). Let&#x27;s make sure
+we have all of the prerequisites:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; apt-get install build-essential libtool autotools-dev automake
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Then clone over a copy of potion, build it, and test the build:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#859900;&quot;&gt;cd &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d33682;&quot;&gt;~
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; clone https:&#x2F;&#x2F;github.com&#x2F;perl11&#x2F;potion.git potion-lang
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;cd&lt;&#x2F;span&gt;&lt;span&gt; potion-lang
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;make
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;make&lt;&#x2F;span&gt;&lt;span&gt; test
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;... and we&#x27;re off to the races!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

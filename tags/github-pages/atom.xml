@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>The Ghost Hu Codes - github-pages</title>
+    <subtitle>Senior Software Engineer</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://theghosthucodes.github.io/tags/github-pages/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2014-12-08T00:00:00+00:00</updated>
+    <id>https://theghosthucodes.github.io/tags/github-pages/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Setting up a GitHub Page with Jekyll Now</title>
+        <published>2014-12-08T00:00:00+00:00</published>
+        <updated>2014-12-08T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Yung-Jin (Joey) Hu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io/blog/setting-up-a-github-page-with-jekyll-now/"/>
+        <id>https://theghosthucodes.github.io/blog/setting-up-a-github-page-with-jekyll-now/</id>
+        
+        <content type="html" xml:base="https://theghosthucodes.github.io/blog/setting-up-a-github-page-with-jekyll-now/">&lt;p&gt;Barry Clark, the guy whose GitHub Page theme I forked, has already given the
+rundown on how to set up a &lt;a href=&quot;http:&#x2F;&#x2F;www.jekyllnow.com&#x2F;&quot;&gt;Jekyll Now&lt;&#x2F;a&gt; GitHub Page
+&lt;a href=&quot;http:&#x2F;&#x2F;www.smashingmagazine.com&#x2F;2014&#x2F;08&#x2F;01&#x2F;build-blog-jekyll-github-pages&#x2F;&quot;&gt;here&lt;&#x2F;a&gt;.
+If you&#x27;re interested in going this route, I&#x27;d suggest that you check out his
+post first. This won&#x27;t be a rehash of his guide. Everything worked pretty much
+as advertised until I got to the point where I wanted to build my website
+locally. See I have this issue where I don&#x27;t like testing in production. I
+haven&#x27;t worked with ruby gems very much, and as it turns out I had some
+&lt;a href=&quot;http:&#x2F;&#x2F;michaelchelen.net&#x2F;81fa&#x2F;install-jekyll-2-ubuntu-14-04&#x2F;&quot;&gt;prerequisites&lt;&#x2F;a&gt;
+to install on my Ubuntu 14.04 machine:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;shell&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-shell &quot;&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;sudo apt-get install ruby ruby-dev make gcc nodejs
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;after that things went more smoothly:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;shell&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-shell &quot;&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;sudo gem install github-pages
+&lt;&#x2F;span&gt;&lt;span&gt;cd &amp;lt;repo directory&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;jekyll serve --watch
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;and your locally built website should be served up at:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;shell&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-shell &quot;&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;http:&#x2F;&#x2F;0.0.0.0:4000
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Switching to GitHub Pages</title>
+        <published>2014-12-06T00:00:00+00:00</published>
+        <updated>2014-12-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Yung-Jin (Joey) Hu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io/blog/switching-to-github-pages/"/>
+        <id>https://theghosthucodes.github.io/blog/switching-to-github-pages/</id>
+        
+        <content type="html" xml:base="https://theghosthucodes.github.io/blog/switching-to-github-pages/">&lt;p&gt;A while back I was playing around with a combination of &lt;a href=&quot;https:&#x2F;&#x2F;www.blogger.com&quot;&gt;Blogger&lt;&#x2F;a&gt; and the browser based editor &lt;a href=&quot;https:&#x2F;&#x2F;stackedit.io&#x2F;&quot;&gt;StackEdit&lt;&#x2F;a&gt;. The results can be seen &lt;a href=&quot;http:&#x2F;&#x2F;alteregocoding.blogspot.com&#x2F;&quot;&gt;here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;It was pretty exciting for a while. The integration of StackEdit with Blogger let me write posts in Markdown and then have it sent up to Blogger for publishing. The problem was that it always seemed a little hacked together. My main problem was that once I published something to Blogger through StackEdit, it became hard to make changes to the post. You&#x27;d have to make changes in StackEdit, find the Blogger post ID number, and then re-post to Blogger by giving StackEdit the ID number of the post you want to change. All of that maintenance was not particularly exciting to me, but I made due for a little while.&lt;&#x2F;p&gt;
+&lt;p&gt;... then tragedy struck (kind of). I bought my Dell XPS m1330 back in 2006 and it has been by my side ever since. It was the first laptop that Dell sold with Ubuntu pre-installed. The keyboard still rocks compared to the junk you find on laptops these days. The problem is that my near decade old Intel integrated graphics card, Chrome, and WebGL don&#x27;t seem to get along. Whenever I browse to something using WebGL I get a very depressing Black Screen of Death (KSoD). Is it time for a new laptop? Maybe, but that&#x27;s a story for another time.&lt;&#x2F;p&gt;
+&lt;p&gt;Short story long, StackEdit was doing something that would trigger my KSoD problem, and all of this made me really not feel like jumping through hoops to blog anymore. So I stopped for a while, always on the lookout for something that would be a little simpler than my cobbled together method.&lt;&#x2F;p&gt;
+&lt;p&gt;That&#x27;s when I found GitHub Pages. Now here I am, trying again. I&#x27;m excited to see how this turns out.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

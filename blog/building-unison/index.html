@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src-attr 'unsafe-inline'">
+
+    <title>Building Unison | The Ghost Hu Codes</title>
+
+    <link rel="preload" href="https://theghosthucodes.github.io/fonts/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="https://theghosthucodes.github.io/fonts/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://theghosthucodes.github.io/css/style.css?h=fd30ebca55fd38ab02dd">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦀</text></svg>">
+    <script src="https://theghosthucodes.github.io/js/auto-close-popover-on-resize.js?h=4ef87d6fc7b98b22e044" defer></script>
+    <script src="https://theghosthucodes.github.io/js/copy-code-to-clipboard.js?h=6aac77c47d552a0ac847" defer></script>
+    <script src="https://theghosthucodes.github.io/js/theme-switcher.js?h=c7049c13f5599d2609bf" defer></script>
+
+    <link rel="canonical" href="https://theghosthucodes.github.io/blog/building-unison/">
+    
+    <meta name="author" content="Yung-Jin (Joey) Hu">
+    <meta name="description" content="The one in which I build a version of Unison on Xubuntu to match the one in OSX.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#211f1a">
+    <meta name="color-scheme" content="dark">
+
+    <meta property="og:title" content="Building Unison">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://theghosthucodes.github.io/blog/building-unison/">
+    <meta property="og:description" content="The one in which I build a version of Unison on Xubuntu to match the one in OSX.">
+    <meta property="og:site_name" content="The Ghost Hu Codes">
+    <meta property="og:updated_time" content="2025-09-27T05:39:00.655452596+00:00">
+    <meta property="article:published_time" content="2015-12-04T00:00:00+00:00">
+    <meta property="article:tag" content="unison">
+    <meta property="article:tag" content="osx">
+    <meta property="article:tag" content="xubuntu">
+</head>
+
+<body class="layout-center">
+    <header class="header">
+        <div class="header-container">
+            <span class="header-logo-container">
+                <a href="https://theghosthucodes.github.io">
+                    <span class="logo">The Ghost Hu Codes</span>
+                </a>
+            </span>
+        </div>
+        <nav class="main-menu" aria-label="Main Menu">
+            <a class="skip-to-content" href="#main">Skip to main content</a>
+            <button class="main-menu-dropdown-button" popovertarget="nav-menu">Menu</button>
+            <ul id="nav-menu" class="main-menu-items" aria-label="Site Navigation" popover>
+                <li><a href="https://theghosthucodes.github.io/blog/">blog</a></li>
+                <li><a href="https://theghosthucodes.github.io/about/">about</a></li>
+                <li><a href="https://theghosthucodes.github.io/tags/">tags</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main id="main">
+        <article class="post content">
+            <header>
+                <h1 class="post-title">
+                    <a href="https://theghosthucodes.github.io/blog/building-unison/">Building Unison</a>
+                </h1>
+                <ul class="post-meta">
+                    <li title="Published on 2015-12-04"><time datetime="2015-12-04">2015.12.04</time></li>
+                    <li role="separator" aria-hidden="true">::</li>
+                    <li title="Author">Yung-Jin (Joey) Hu</li>
+                    <li role="separator" aria-hidden="true">::</li>
+                    <li title="180 words"><time datetime="PT1M">1 min</time> read</li>
+                </ul>
+                <div class="post-tags">
+                    <span>#<a rel="tag" href="https://theghosthucodes.github.io/tags/unison/">unison</a></span>
+                    <span>#<a rel="tag" href="https://theghosthucodes.github.io/tags/osx/">osx</a></span>
+                    <span>#<a rel="tag" href="https://theghosthucodes.github.io/tags/xubuntu/">xubuntu</a></span>
+                </div>
+            </header>
+
+<p>Having switched over to a Mac laptop brings with it some challenges when my
+main desktop is still running Linux. Since I recently took the time to install
+Xubuntu on my desktop machine, I thought I'd get everything setup again so that
+I can seamlessly sync my data between my laptop and my desktop. To do this I
+needed to build a copy of Unison that was the same version as the version
+available in homebrew. In my case this was the 2.48.3 version of Unison.</p>
+<p>First we'll need some prerequisites. Unison is written in OCaml.</p>
+<pre data-lang="bash" style="background-color:#002b36;color:#839496;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#b58900;">sudo</span><span> apt-get install ocaml liblablgtk2-ocaml-dev
+</span></code></pre>
+<p>Next, we'll set up a temporary directory and grab a copy of the version of
+Unison that we need.</p>
+<pre data-lang="bash" style="background-color:#002b36;color:#839496;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#b58900;">mkdir</span><span> tempBuild
+</span><span style="color:#859900;">cd</span><span> tempBuild
+</span><span style="color:#b58900;">wget </span><span>&quot;</span><span style="color:#2aa198;">http://www.seas.upenn.edu/</span><span>&quot;</span><span style="color:#dc322f;">\
+</span><span>&quot;</span><span style="color:#2aa198;">~bcpierce/unison/download/releases/stable/unison-2.48.4.tar.gz</span><span>&quot;
+</span><span style="color:#b58900;">tar</span><span> xvfz unison-2.48.3.tar.gz
+</span></code></pre>
+<p>Finally, we'll go into that directory, build unison, and copy it over to a
+directory in my path.</p>
+<pre data-lang="bash" style="background-color:#002b36;color:#839496;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#859900;">cd</span><span> unison-2.48.3
+</span><span style="color:#b58900;">make</span><span> UISTYLE=text
+</span><span style="color:#b58900;">make</span><span> unison
+</span><span style="color:#b58900;">mv</span><span> unison /usr/local/bin/
+</span></code></pre>
+<p>Note, I chose to put unison in <code>/usr/local/bin/</code> because this path is searched
+when I start a terminal in non-interactive mode. This is important because when
+I execute the <code>unison</code> command on my laptop it executes on the remote machine
+in non-interactive mode.</p>
+
+        </article>
+        <nav class="post-navigation">
+            <header class="post-navigation-title">
+                <h2>Read More Posts</h2>
+                <hr>
+            </header>
+            <div class="post-navigation-buttons">
+                <a rel="next" href="https://theghosthucodes.github.io/blog/building-a-mini-itx-machine/" aria-label="Next article">
+                    <span aria-hidden="true">&lt;&nbsp;[</span>Building a mini-ITX machine<span aria-hidden="true">]</span>
+                </a>
+                <span aria-hidden="true" role="separator">::</span>
+                <a rel="prev" href="https://theghosthucodes.github.io/blog/adding-swap-space-to-azure-ubuntu-vm/" aria-label="Prev article">
+                    <span aria-hidden="true">[</span>Adding Swap space to an Ubuntu server in Azure<span aria-hidden="true">]&nbsp;&gt;</span>
+                </a>
+            </div>
+        </nav>
+    </main>
+    <footer class="footer">
+        <address class="socials">
+            <ul>
+                <li>
+                    <a class="social-link" rel="me" href="https://github.com/TheGhostHuCodes" title="github">
+                        <svg role="img" aria-label="github">
+                            <use aria-hidden="true" href="https://theghosthucodes.github.io/images/social_icons/github.svg#icon" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a class="social-link" rel="me" href="https://www.linkedin.com/in/yungjinhu/" title="linkedin">
+                        <svg role="img" aria-label="linkedin">
+                            <use aria-hidden="true" href="https://theghosthucodes.github.io/images/social_icons/linkedin.svg#icon" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a class="social-link" rel="me" href="https://stackoverflow.com/users/1701171/pythonjin" title="stackoverflow">
+                        <svg role="img" aria-label="stackoverflow">
+                            <use aria-hidden="true" href="https://theghosthucodes.github.io/images/social_icons/stackoverflow.svg#icon" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </address>
+        <p class="copyright">
+            <span>© <time>2025</time> Yung-Jin (Joey) Hu</span>
+            <span>Powered by <a href="https://www.getzola.org">Zola</a></span>
+            <span>Theme by <a href="https://eyalkalderon.com">ebkalderon</a></span>
+        </p>
+    </footer>
+</body>
+
+</html>

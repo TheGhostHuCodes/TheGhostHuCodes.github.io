@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>The Ghost Hu Codes - git</title>
+    <subtitle>Senior Software Engineer</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://theghosthucodes.github.io/tags/git/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2016-10-15T00:00:00+00:00</updated>
+    <id>https://theghosthucodes.github.io/tags/git/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Switching git profiles</title>
+        <published>2016-10-15T00:00:00+00:00</published>
+        <updated>2016-10-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Yung-Jin (Joey) Hu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io/blog/switching-git-profiles/"/>
+        <id>https://theghosthucodes.github.io/blog/switching-git-profiles/</id>
+        
+        <content type="html" xml:base="https://theghosthucodes.github.io/blog/switching-git-profiles/">&lt;p&gt;I use git at work, which is great, but I also still work on personal side
+projects for fun at home. I like to use my legal name and personal email when
+working on my own projects, but I prefer to use my nickname and am required to
+use my work email when committing to work related projects. That means I&#x27;m
+always trying to remember which &lt;code&gt;user.name&lt;&#x2F;code&gt; and &lt;code&gt;user.email&lt;&#x2F;code&gt; is set to a
+particular git repository, and dealing with setting that up correctly can be a
+real pain.&lt;&#x2F;p&gt;
+&lt;p&gt;If all I wanted to do was set my &lt;code&gt;user.email&lt;&#x2F;code&gt; then I could write a simple git
+alias as described
+&lt;a href=&quot;http:&#x2F;&#x2F;www.codeography.com&#x2F;2011&#x2F;08&#x2F;05&#x2F;project-specific-git-author.html&quot;&gt;here&lt;&#x2F;a&gt;,
+but what I&#x27;d really like to do is set both my &lt;code&gt;user.name&lt;&#x2F;code&gt; and &lt;code&gt;user.email&lt;&#x2F;code&gt; in a
+single git alias. Unfortunately you can&#x27;t easily do that in a single git alias.
+However, what you can do, as I learned from this blog post on &lt;a href=&quot;http:&#x2F;&#x2F;blogs.atlassian.com&#x2F;2014&#x2F;10&#x2F;advanced-git-aliases&#x2F;&quot;&gt;advanced git
+aliases&lt;&#x2F;a&gt;, is shell out
+to bash and from there the world is your oyster! For example, I added the
+following to my &lt;code&gt;~&#x2F;.gitconfig&lt;&#x2F;code&gt; file:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;[alias]
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;athome&lt;&#x2F;span&gt;&lt;span&gt; = &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;!f() { &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;    git config user.name &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;Yung-Jin (Joey) Hu&lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;    git config user.email &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;yungjinhu@gmail.com&lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;    }; f&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;atwork&lt;&#x2F;span&gt;&lt;span&gt; = &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;!f() { &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;    git config user.name &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;Joey Hu&lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;    git config user.email &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;myemail@work.com&lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;    }; f&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;whoami&lt;&#x2F;span&gt;&lt;span&gt; = &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;!f() { &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;    git config user.name ; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;    git config user.email ; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;    }; f&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Now I&#x27;ve got these awesome git aliases that let me check my current profile (&lt;code&gt;git whoami&lt;&#x2F;code&gt;) and
+switch user profiles easily (&lt;code&gt;git athome&lt;&#x2F;code&gt; and &lt;code&gt;git atwork&lt;&#x2F;code&gt;) within a git repo:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; git whoami
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Joey&lt;&#x2F;span&gt;&lt;span&gt; Hu
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;myemail@work.com
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; git athome
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; git whoami
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Yung-Jin&lt;&#x2F;span&gt;&lt;span&gt; (Joey) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Hu
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;yungjinhu@gmail.com
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; git atwork
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; git whoami
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Joey&lt;&#x2F;span&gt;&lt;span&gt; Hu
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;myemail@work.com
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+</feed>

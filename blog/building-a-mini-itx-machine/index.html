@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src-attr 'unsafe-inline'">
+
+    <title>Building a mini-ITX machine | The Ghost Hu Codes</title>
+
+    <link rel="preload" href="https://theghosthucodes.github.io/fonts/FiraCode-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="https://theghosthucodes.github.io/fonts/FiraCode-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://theghosthucodes.github.io/css/style.css?h=fd30ebca55fd38ab02dd">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦀</text></svg>">
+    <script src="https://theghosthucodes.github.io/js/auto-close-popover-on-resize.js?h=4ef87d6fc7b98b22e044" defer></script>
+    <script src="https://theghosthucodes.github.io/js/copy-code-to-clipboard.js?h=6aac77c47d552a0ac847" defer></script>
+    <script src="https://theghosthucodes.github.io/js/theme-switcher.js?h=c7049c13f5599d2609bf" defer></script>
+
+    <link rel="canonical" href="https://theghosthucodes.github.io/blog/building-a-mini-itx-machine/">
+    
+    <meta name="author" content="Yung-Jin (Joey) Hu">
+    <meta name="description" content="The one in which I build the smallest computer I ever built.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#211f1a">
+    <meta name="color-scheme" content="dark">
+
+    <meta property="og:title" content="Building a mini-ITX machine">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://theghosthucodes.github.io/blog/building-a-mini-itx-machine/">
+    <meta property="og:description" content="The one in which I build the smallest computer I ever built.">
+    <meta property="og:site_name" content="The Ghost Hu Codes">
+    <meta property="og:updated_time" content="2025-09-27T05:39:00.655117110+00:00">
+    <meta property="article:published_time" content="2016-01-13T00:00:00+00:00">
+    <meta property="article:tag" content="hardware">
+    <meta property="article:tag" content="mini-itx">
+    <meta property="article:tag" content="skylake">
+</head>
+
+<body class="layout-center">
+    <header class="header">
+        <div class="header-container">
+            <span class="header-logo-container">
+                <a href="https://theghosthucodes.github.io">
+                    <span class="logo">The Ghost Hu Codes</span>
+                </a>
+            </span>
+        </div>
+        <nav class="main-menu" aria-label="Main Menu">
+            <a class="skip-to-content" href="#main">Skip to main content</a>
+            <button class="main-menu-dropdown-button" popovertarget="nav-menu">Menu</button>
+            <ul id="nav-menu" class="main-menu-items" aria-label="Site Navigation" popover>
+                <li><a href="https://theghosthucodes.github.io/blog/">blog</a></li>
+                <li><a href="https://theghosthucodes.github.io/about/">about</a></li>
+                <li><a href="https://theghosthucodes.github.io/tags/">tags</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main id="main">
+        <article class="post content">
+            <header>
+                <h1 class="post-title">
+                    <a href="https://theghosthucodes.github.io/blog/building-a-mini-itx-machine/">Building a mini-ITX machine</a>
+                </h1>
+                <ul class="post-meta">
+                    <li title="Published on 2016-01-13"><time datetime="2016-01-13">2016.01.13</time></li>
+                    <li role="separator" aria-hidden="true">::</li>
+                    <li title="Author">Yung-Jin (Joey) Hu</li>
+                    <li role="separator" aria-hidden="true">::</li>
+                    <li title="762 words"><time datetime="PT4M">4 min</time> read</li>
+                </ul>
+                <div class="post-tags">
+                    <span>#<a rel="tag" href="https://theghosthucodes.github.io/tags/hardware/">hardware</a></span>
+                    <span>#<a rel="tag" href="https://theghosthucodes.github.io/tags/mini-itx/">mini-itx</a></span>
+                    <span>#<a rel="tag" href="https://theghosthucodes.github.io/tags/skylake/">skylake</a></span>
+                </div>
+            </header>
+
+<p>It's been a while since the last time I built a computer from scratch. I think
+it was in 2005. I say that because I remember a buddy of mine wanted me to play
+World of Warcraft with him and I needed a new rig to do that. Since then I've
+gradually upgraded some components (RAM, GPU, HDDs), but other than that It's
+the same build as it was 10+ years ago.</p>
+<p>Time for a refresh. Here's a list of components that I bought for my new rig:</p>
+<ul>
+<li>Gigabyte Z170N-Gaming5 Motherboard</li>
+<li>Intel i5-6500 LGA 1151 3.2 GHz Skylake CPU</li>
+<li>Fractal Design Node 304 Case</li>
+<li>Seasonic G-Series 550 W PSU</li>
+<li>2x Corsair Vengeance LPX 8 GB 2666 MHz DDR4</li>
+</ul>
+<p>And here are some parts that I scavenged from my old build to cut down on cost:</p>
+<ul>
+<li>MSi N630GT-MD1GD3 (NVIDIA GeForce GT630) GPU</li>
+<li>256 GB Samsung 840 EVO SSD</li>
+<li>2x 2 TB WD 7200 RPM HDDs</li>
+</ul>
+<p>The SSD is used for my OS and SWAP partitions, while the two HDDs are set up as
+a mirrored ZFS pool and mounted as my <code>/home</code> directory.</p>
+<p>I chose to go with a mini-ITX build because I had never built one before, but I
+use to live with housemates who had these awesome shoebox sized rigs that fit
+on their desktop. They were actually mini-DTX builds, but close enough. Also, I
+thought it was finally time to get rid of my optical drive, and I really wanted
+to have USB3 ports as well.</p>
+<p>It being so long since I had built a computer from scratch, I did run into some
+issues. The first thing I did was mount my CPU on the motherboard and pop on
+the stock CPU fan that came with the processor. I then put the stand-offs into
+my new case and installed the motherboard. Next I installed my GPU, SSD, and
+RAM. I only added the OS drive to check to see that everything was working
+properly. Finally, I added in the PSU and wired the whole thing up.</p>
+<p>Installing the PSU into the Node 304 case was kind of annoying, so for the time
+being I left it sitting sideways in the case. If I had to do it all over again,
+I would recommend
+<a href="http://www.tomshardware.com/forum/262730-31-breadboarding">breadboarding</a> your
+build before putting it in the case. I had issues initially with putting
+everything on the motherboard all at once. After plugging everything in I turned
+on the power, and nothing happened. Turns out my issue was #6 on this listing
+of <a href="http://www.tomshardware.com/forum/261145-31-perform-steps-posting-post-boot-video-problems">things to do when your new build has post boot video
+problems</a>.</p>
+<p>I ended up disconnecting everything from the motherboard, putting in only one
+stick of RAM, and plugging in the DVI-D cable into the integrated graphics on
+the motherboard. This solved my initial problems. From there I was able to set
+an XMP profile, which was able to detect the correct RAM frequency properly in
+the BIOS. Then I was able to put in the second stick of RAM. From there I
+plugged in the GPU and switched my monitor over to that. At this point the
+whole build was still spread over most of my desk.</p>
+<p>When I tried to start putting things in their place, I noticed that the
+clearance between the PSU and the SATA-III ports were about 5 mm. There was no
+way that I was going to get a normal SATA cable to bend in that space. It's
+certainly something to think about when putting the Z170N-Gaming5 motherboard
+in the Node 304 case. It turns out, what I needed was either <a href="http://www.amazon.com/gp/product/B005S0X2OI?psc=1&amp;redirect=true&amp;ref_=oh_aui_detailpage_o03_s00">left-angle SATA
+cables</a>
+or <a href="http://www.amazon.com/gp/product/B0068Q59O2?psc=1&amp;redirect=true&amp;ref_=oh_aui_detailpage_o03_s00">mini SATA
+cables</a>.
+I bought two of each, and plugged them all in, even though I only need 3,
+because I don't want to have to remove the hard drives and PSU just to plug in
+a single SATA cable. For anyone considering a build with this motherboard and
+case combination, I recommend the mini SATA cables. They have sufficient bend
+in so that you can plug them into the SATA port without too much trouble.</p>
+<p>After all was said and done, I dropped Ubuntu 15.10 on it and ran Geekbench. My
+Geekbench 3 score came out at slightly over 3800 for single core performance.
+Not too bad. I'll take it!</p>
+
+        </article>
+        <nav class="post-navigation">
+            <header class="post-navigation-title">
+                <h2>Read More Posts</h2>
+                <hr>
+            </header>
+            <div class="post-navigation-buttons">
+                <a rel="next" href="https://theghosthucodes.github.io/blog/moving-my-zfs-pool-to-ubuntu-16-04/" aria-label="Next article">
+                    <span aria-hidden="true">&lt;&nbsp;[</span>Moving my ZFS Pool to Ubuntu 16.04 LTS<span aria-hidden="true">]</span>
+                </a>
+                <span aria-hidden="true" role="separator">::</span>
+                <a rel="prev" href="https://theghosthucodes.github.io/blog/building-unison/" aria-label="Prev article">
+                    <span aria-hidden="true">[</span>Building Unison<span aria-hidden="true">]&nbsp;&gt;</span>
+                </a>
+            </div>
+        </nav>
+    </main>
+    <footer class="footer">
+        <address class="socials">
+            <ul>
+                <li>
+                    <a class="social-link" rel="me" href="https://github.com/TheGhostHuCodes" title="github">
+                        <svg role="img" aria-label="github">
+                            <use aria-hidden="true" href="https://theghosthucodes.github.io/images/social_icons/github.svg#icon" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a class="social-link" rel="me" href="https://www.linkedin.com/in/yungjinhu/" title="linkedin">
+                        <svg role="img" aria-label="linkedin">
+                            <use aria-hidden="true" href="https://theghosthucodes.github.io/images/social_icons/linkedin.svg#icon" />
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a class="social-link" rel="me" href="https://stackoverflow.com/users/1701171/pythonjin" title="stackoverflow">
+                        <svg role="img" aria-label="stackoverflow">
+                            <use aria-hidden="true" href="https://theghosthucodes.github.io/images/social_icons/stackoverflow.svg#icon" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </address>
+        <p class="copyright">
+            <span>© <time>2025</time> Yung-Jin (Joey) Hu</span>
+            <span>Powered by <a href="https://www.getzola.org">Zola</a></span>
+            <span>Theme by <a href="https://eyalkalderon.com">ebkalderon</a></span>
+        </p>
+    </footer>
+</body>
+
+</html>

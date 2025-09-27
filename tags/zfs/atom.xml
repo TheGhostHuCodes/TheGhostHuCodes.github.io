@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>The Ghost Hu Codes - zfs</title>
+    <subtitle>Senior Software Engineer</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://theghosthucodes.github.io/tags/zfs/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2016-05-14T00:00:00+00:00</updated>
+    <id>https://theghosthucodes.github.io/tags/zfs/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Moving my ZFS Pool to Ubuntu 16.04 LTS</title>
+        <published>2016-05-14T00:00:00+00:00</published>
+        <updated>2016-05-14T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Yung-Jin (Joey) Hu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io/blog/moving-my-zfs-pool-to-ubuntu-16-04/"/>
+        <id>https://theghosthucodes.github.io/blog/moving-my-zfs-pool-to-ubuntu-16-04/</id>
+        
+        <content type="html" xml:base="https://theghosthucodes.github.io/blog/moving-my-zfs-pool-to-ubuntu-16-04/">&lt;p&gt;So Ubuntu 16.04 LTS is finally out. Is it the LTS that I&#x27;ve been waiting for?
+Ubuntu 15.10 was a fine operating system, but it promised out-of-the-box ZFS
+support, and didn&#x27;t really deliver on it. In the end I had to mess around with
+systemd to get everything working and that was a bit of a pain.&lt;&#x2F;p&gt;
+&lt;p&gt;You see, &lt;a href=&quot;http:&#x2F;&#x2F;alteregocoding.blogspot.com&#x2F;2014&#x2F;04&#x2F;setting-up-zfs-file-system-on-ubuntu.html&quot;&gt;years
+ago&lt;&#x2F;a&gt;
+I switched over to ZFS after one of my drives decided to give up the ghost.
+Although I&#x27;ve been very happy with ZFS since then, it&#x27;s always been kind of a
+hassle to get things working again when I update my OS... that is, until now.
+How hard is it to mount my ZFS pool in Ubuntu 16.04?&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; sudo apt-get install zfsutils-linux
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; sudo zfs mount&lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt; -vO -a
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The &lt;code&gt;-vO&lt;&#x2F;code&gt; switch executes an overlay mount, which I need since I&#x27;m mounting my
+ZFS &lt;code&gt;&#x2F;home&lt;&#x2F;code&gt; over the existing &lt;code&gt;&#x2F;home&lt;&#x2F;code&gt; directory on my SSD. After everything is
+installed I can:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; sudo zfs mount
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;tank&lt;&#x2F;span&gt;&lt;span&gt;                            &#x2F;tank
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;tank&#x2F;home&lt;&#x2F;span&gt;&lt;span&gt;                       &#x2F;home
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;to make sure that the ZFS filesystem was mounted correctly.&lt;&#x2F;p&gt;
+&lt;p&gt;To continue to mount the ZFS filesystem upon reboot we need to open up
+&lt;code&gt;&#x2F;etc&#x2F;rc.local&lt;&#x2F;code&gt; and add the following line to the file:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;zfs&lt;&#x2F;span&gt;&lt;span&gt; mount&lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt; -vO -a
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;That&#x27;s it? That&#x27;s it. Log out, log back in and we&#x27;re off to the races!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

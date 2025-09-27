@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>The Ghost Hu Codes - c++</title>
+    <subtitle>Senior Software Engineer</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://theghosthucodes.github.io/tags/c/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2015-01-01T00:00:00+00:00</updated>
+    <id>https://theghosthucodes.github.io/tags/c/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Building googletest 1.7.0 on Ubuntu</title>
+        <published>2015-01-01T00:00:00+00:00</published>
+        <updated>2015-01-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Yung-Jin (Joey) Hu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io/blog/building-gtest-1-7-on-ubuntu/"/>
+        <id>https://theghosthucodes.github.io/blog/building-gtest-1-7-on-ubuntu/</id>
+        
+        <content type="html" xml:base="https://theghosthucodes.github.io/blog/building-gtest-1-7-on-ubuntu/">&lt;p&gt;Unit testing is awesome. Working with legacy code, not so much. Of course when
+I say &lt;a href=&quot;http:&#x2F;&#x2F;www.amazon.com&#x2F;Working-Effectively-Legacy-Michael-Feathers&#x2F;dp&#x2F;0131177052&quot;&gt;legacy
+code&lt;&#x2F;a&gt;,
+I actually mean what Michael Feathers means: code that has no unit tests.&lt;&#x2F;p&gt;
+&lt;p&gt;A while back I was getting started with googletest on Ubuntu and ran into
+&lt;a href=&quot;http:&#x2F;&#x2F;www.thebigblob.com&#x2F;getting-started-with-google-test-on-ubuntu&#x2F;&quot;&gt;this&lt;&#x2F;a&gt;
+great post. Sadly, the libgtest-dev package does not install the static
+libraries, and the Ubuntu 14.04 repo is still stuck on the 1.6.0 version. Can we
+do better (other than upgrading to 14.10)? Sure we can! Let&#x27;s grab the latest
+source from the &lt;a href=&quot;https:&#x2F;&#x2F;code.google.com&#x2F;p&#x2F;googletest&#x2F;&quot;&gt;googletest website&lt;&#x2F;a&gt; and
+build our own! Of course, along the way we&#x27;re going to build and run the
+tests for googletest too. How meta. We&#x27;re going to need &lt;code&gt;cmake&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;shell&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-shell &quot;&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;span&gt;$ sudo apt-get install cmake
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Unzip the googletest source in your directory of choice. I&#x27;m a big fan of using
+&lt;code&gt;&#x2F;usr&#x2F;local&#x2F;src&lt;&#x2F;code&gt; but it&#x27;s really a personal preference. Change to that
+directory and run the following cmake command to build the googletest static
+libraries in release mode and the googletest tests (case matters here for the
+cmake switches):&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; sudo cmake&lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt; -DCMAKE_BUILD_TYPE&lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;RELEASE&lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt; -Dgtest_build_tests&lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;ON
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; sudo make
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Next we launch the tests like so:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; make test
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;and you should see output that looks something like this:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Running&lt;&#x2F;span&gt;&lt;span&gt; tests...
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Test&lt;&#x2F;span&gt;&lt;span&gt; project &#x2F;usr&#x2F;local&#x2F;src&#x2F;gtest-1.7.0
+&lt;&#x2F;span&gt;&lt;span&gt;     &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Start&lt;&#x2F;span&gt;&lt;span&gt;  1: gtest-death-test_test
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;1&#x2F;41&lt;&#x2F;span&gt;&lt;span&gt; Test  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#586e75;&quot;&gt;#1: gtest-death-test_test ..............   Passed    0.84 sec
+&lt;&#x2F;span&gt;&lt;span&gt;     &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Start&lt;&#x2F;span&gt;&lt;span&gt;  2: gtest_environment_test
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;2&#x2F;41&lt;&#x2F;span&gt;&lt;span&gt; Test  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#586e75;&quot;&gt;#2: gtest_environment_test .............   Passed    0.00 sec
+&lt;&#x2F;span&gt;&lt;span&gt;     &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Start&lt;&#x2F;span&gt;&lt;span&gt;  3: gtest-filepath_test
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;3&#x2F;41&lt;&#x2F;span&gt;&lt;span&gt; Test  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#586e75;&quot;&gt;#3: gtest-filepath_test ................   Passed    0.01 sec
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;...
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Make sure that all of the tests pass. Now it&#x27;s time to toss your compiled
+libraries somewhere that cmake will be able to find them:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; sudo cp libgtest&lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;usr&#x2F;lib
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We&#x27;re going to need to add this line to our .zshrc (or similar shell) file so
+that cmake will be able to find the googletest headers.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#93a1a1;&quot;&gt;export &lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt;GTEST_ROOT&lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;&#x2F;usr&#x2F;local&#x2F;src&#x2F;gtest-1.7.0&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;How did I know this? Well if you look in the file
+&lt;code&gt;&#x2F;usr&#x2F;share&#x2F;cmake-2.8&#x2F;Modules&#x2F;FindGTest.cmake&lt;&#x2F;code&gt; you will find the following
+section:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;cmake&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-cmake &quot;&gt;&lt;code class=&quot;language-cmake&quot; data-lang=&quot;cmake&quot;&gt;&lt;span style=&quot;color:#859900;&quot;&gt;find_path&lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span&gt;GTEST_INCLUDE_DIR gtest&#x2F;gtest.h
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt;HINTS
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;$ENV&lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;{&lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt;GTEST_ROOT&lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;}&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;include
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;{&lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt;GTEST_ROOT&lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;}&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;include
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Because we&#x27;re building googletest from source in an unconventional directory,
+we&#x27;ll need to give cmake a hint as to where the googletest headers are.&lt;&#x2F;p&gt;
+&lt;p&gt;If you didn&#x27;t want to add the environment variable, you could also have passed
+the location of the googletest headers as a switch to cmake:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;cmake&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-cmake &quot;&gt;&lt;code class=&quot;language-cmake&quot; data-lang=&quot;cmake&quot;&gt;&lt;span&gt;$ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;cmake&lt;&#x2F;span&gt;&lt;span&gt; -DGTEST_ROOT=&amp;quot;&#x2F;usr&#x2F;local&#x2F;src&#x2F;gtest-1.7.0&#x2F;&amp;quot;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Now we&#x27;re all set. You can check everything is working by going back to
+&lt;a href=&quot;http:&#x2F;&#x2F;www.thebigblob.com&#x2F;getting-started-with-google-test-on-ubuntu&#x2F;&quot;&gt;this&lt;&#x2F;a&gt;
+post and copy-pasta the source code and tests. Happy building!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

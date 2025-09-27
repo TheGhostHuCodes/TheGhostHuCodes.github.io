@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>The Ghost Hu Codes - xubuntu</title>
+    <subtitle>Senior Software Engineer</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://theghosthucodes.github.io/tags/xubuntu/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2015-12-04T00:00:00+00:00</updated>
+    <id>https://theghosthucodes.github.io/tags/xubuntu/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Building Unison</title>
+        <published>2015-12-04T00:00:00+00:00</published>
+        <updated>2015-12-04T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Yung-Jin (Joey) Hu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io/blog/building-unison/"/>
+        <id>https://theghosthucodes.github.io/blog/building-unison/</id>
+        
+        <content type="html" xml:base="https://theghosthucodes.github.io/blog/building-unison/">&lt;p&gt;Having switched over to a Mac laptop brings with it some challenges when my
+main desktop is still running Linux. Since I recently took the time to install
+Xubuntu on my desktop machine, I thought I&#x27;d get everything setup again so that
+I can seamlessly sync my data between my laptop and my desktop. To do this I
+needed to build a copy of Unison that was the same version as the version
+available in homebrew. In my case this was the 2.48.3 version of Unison.&lt;&#x2F;p&gt;
+&lt;p&gt;First we&#x27;ll need some prerequisites. Unison is written in OCaml.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; apt-get install ocaml liblablgtk2-ocaml-dev
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Next, we&#x27;ll set up a temporary directory and grab a copy of the version of
+Unison that we need.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;mkdir&lt;&#x2F;span&gt;&lt;span&gt; tempBuild
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;cd&lt;&#x2F;span&gt;&lt;span&gt; tempBuild
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;wget &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;http:&#x2F;&#x2F;www.seas.upenn.edu&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#dc322f;&quot;&gt;\
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#2aa198;&quot;&gt;~bcpierce&#x2F;unison&#x2F;download&#x2F;releases&#x2F;stable&#x2F;unison-2.48.4.tar.gz&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;tar&lt;&#x2F;span&gt;&lt;span&gt; xvfz unison-2.48.3.tar.gz
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Finally, we&#x27;ll go into that directory, build unison, and copy it over to a
+directory in my path.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#859900;&quot;&gt;cd&lt;&#x2F;span&gt;&lt;span&gt; unison-2.48.3
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;make&lt;&#x2F;span&gt;&lt;span&gt; UISTYLE=text
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;make&lt;&#x2F;span&gt;&lt;span&gt; unison
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;mv&lt;&#x2F;span&gt;&lt;span&gt; unison &#x2F;usr&#x2F;local&#x2F;bin&#x2F;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Note, I chose to put unison in &lt;code&gt;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;&lt;&#x2F;code&gt; because this path is searched
+when I start a terminal in non-interactive mode. This is important because when
+I execute the &lt;code&gt;unison&lt;&#x2F;code&gt; command on my laptop it executes on the remote machine
+in non-interactive mode.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>The Ghost Hu Codes - azure</title>
+    <subtitle>Senior Software Engineer</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://theghosthucodes.github.io/tags/azure/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2015-03-06T00:00:00+00:00</updated>
+    <id>https://theghosthucodes.github.io/tags/azure/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Adding Swap space to an Ubuntu server in Azure</title>
+        <published>2015-03-06T00:00:00+00:00</published>
+        <updated>2015-03-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Yung-Jin (Joey) Hu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io/blog/adding-swap-space-to-azure-ubuntu-vm/"/>
+        <id>https://theghosthucodes.github.io/blog/adding-swap-space-to-azure-ubuntu-vm/</id>
+        
+        <content type="html" xml:base="https://theghosthucodes.github.io/blog/adding-swap-space-to-azure-ubuntu-vm/">&lt;p&gt;So a few weeks ago, I was playing around with building LLVM&#x2F;Clang from source
+on my Azure hosted Ubuntu VM (a story for another time). The process would take
+a few hours, so I&#x27;d start it running in the evening, log out. But when I came
+back to check up on it in the morning, I kept getting these errors:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Linking&lt;&#x2F;span&gt;&lt;span&gt; CXX executable ..&#x2F;..&#x2F;..&#x2F;..&#x2F;bin&#x2F;clang
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;collect2:&lt;&#x2F;span&gt;&lt;span&gt; error: ld terminated with signal 9 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;[&lt;&#x2F;span&gt;&lt;span&gt;Killed&lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;make[2]: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;*** [&lt;&#x2F;span&gt;&lt;span&gt;bin&#x2F;clang&lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span&gt;3.5&lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span&gt; Error 1
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;make[1]: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;*** [&lt;&#x2F;span&gt;&lt;span&gt;tools&#x2F;clang&#x2F;tools&#x2F;driver&#x2F;CMakeFiles&#x2F;clang.dir&#x2F;all&lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span&gt; Error 2
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;make: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;*** [&lt;&#x2F;span&gt;&lt;span&gt;all&lt;&#x2F;span&gt;&lt;span style=&quot;color:#859900;&quot;&gt;]&lt;&#x2F;span&gt;&lt;span&gt; Error 2
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Obviously, something bad was happening, so I Googled around and it seems that
+the error often occurs when linking and not having enough memory. But wait, I&#x27;m
+sure I have plenty of memory in my Azure VM, 3.5 GB of RAM and some extra Swap
+space to boot.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; free&lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt; -h
+&lt;&#x2F;span&gt;&lt;span&gt;             &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;total&lt;&#x2F;span&gt;&lt;span&gt;       used       free     shared    buffers     cached
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Mem:&lt;&#x2F;span&gt;&lt;span&gt;          3.4G       871M       2.5G       416K        78M       600M
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;-&#x2F;+&lt;&#x2F;span&gt;&lt;span&gt; buffers&#x2F;cache:       192M       3.2G
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Swap:&lt;&#x2F;span&gt;&lt;span&gt;           0B         0B         0B
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;OH...&lt;&#x2F;p&gt;
+&lt;p&gt;.. and then I found &lt;a href=&quot;http:&#x2F;&#x2F;blogs.msdn.com&#x2F;b&#x2F;piyushranjan&#x2F;archive&#x2F;2013&#x2F;05&#x2F;31&#x2F;swap-space-in-linux-vm-s-on-windows-azure-part-1.aspx&quot;&gt;this blog
+post&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Really, Microsoft? No Swap space? Not even a little?&lt;&#x2F;p&gt;
+&lt;p&gt;Let&#x27;s go ahead and use the good &#x27;ol estimate of ~2x my physical RAM for the
+Swap space.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; sudo fallocate&lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt; -l&lt;&#x2F;span&gt;&lt;span&gt; 7g &#x2F;mnt&#x2F;swap7gb
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; sudo chmod 600 &#x2F;mnt&#x2F;swap7gb
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; sudo mkswap &#x2F;mnt&#x2F;swap7gb
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; sudo swapon &#x2F;mnt&#x2F;swap7gb
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And now I have Swap space!&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; free&lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt; -h
+&lt;&#x2F;span&gt;&lt;span&gt;             &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;total&lt;&#x2F;span&gt;&lt;span&gt;       used       free     shared    buffers     cached
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Mem:&lt;&#x2F;span&gt;&lt;span&gt;          3.4G       871M       2.5G       416K        78M       600M
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;-&#x2F;+&lt;&#x2F;span&gt;&lt;span&gt; buffers&#x2F;cache:       192M       3.2G
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;Swap:&lt;&#x2F;span&gt;&lt;span&gt;         7.0G         0B       7.0G
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;That&#x27;s much better.&lt;&#x2F;p&gt;
+&lt;p&gt;EDIT: ... or I guess I could have just snuck into Microsoft&#x27;s server farm and
+&lt;a href=&quot;http:&#x2F;&#x2F;www.xkcd.com&#x2F;1495&#x2F;&quot;&gt;connected a light timer to the rack that was hosting my
+VM&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Setting up an Ubuntu server in Azure</title>
+        <published>2015-01-19T00:00:00+00:00</published>
+        <updated>2015-01-19T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Yung-Jin (Joey) Hu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io/blog/setting-up-an-ubuntu-server-on-azure/"/>
+        <id>https://theghosthucodes.github.io/blog/setting-up-an-ubuntu-server-on-azure/</id>
+        
+        <content type="html" xml:base="https://theghosthucodes.github.io/blog/setting-up-an-ubuntu-server-on-azure/">&lt;p&gt;For those of you who don&#x27;t know, I work at a Microsoft shop. It&#x27;s not as bad as
+it initially sounds. Microsoft has changed a lot since the days when I was sure
+that &lt;a href=&quot;http:&#x2F;&#x2F;www.hanselman.com&#x2F;blog&#x2F;MicrosoftKilledMyPappy.aspx&quot;&gt;they killed my
+pappy&lt;&#x2F;a&gt;. By the way,
+my favorite line from Scott Hanselman&#x27;s post is how he describes Microsoft:
+&quot;&lt;em&gt;We&#x27;re not nearly as organized as we&#x27;d need to be to be as evil as you might
+think we are.&lt;&#x2F;em&gt;&quot; I&#x27;ll just leave it at that.&lt;&#x2F;p&gt;
+&lt;p&gt;One of the perks of working at a Microsoft shop is my MSDN account,
+and one of the perks of having an MSDN account is the free Azure benefits that
+I get. What have I decided to do with my 100 Azure fun-bucks per month, you ask?
+Of course, I&#x27;m going to set up an Ubuntu server! For the curious, 100 quatloos
+a month on Azure can get you a D1 Linux VM (1 core, 3.5 GB RAM, 50 GB SSD), some
+hard drive space, and leave enough left over to play around with some of the
+other neat things that seem to be showing up on Azure (HDInsight &#x2F; Machine
+Learning, I&#x27;m looking at you).&lt;&#x2F;p&gt;
+&lt;p&gt;Microsoft&#x27;s &quot;&lt;a href=&quot;http:&#x2F;&#x2F;azure.microsoft.com&#x2F;en-us&#x2F;documentation&#x2F;articles&#x2F;virtual-machines-linux-tutorial&#x2F;&quot;&gt;Create a Virtual Machine Running
+Linux&lt;&#x2F;a&gt;&quot;
+is surprisingly helpful, considering my usual subpar experience with Microsoft
+documentation. If you&#x27;re interested in doing things right, you should probably
+also check out &quot;&lt;a href=&quot;http:&#x2F;&#x2F;azure.microsoft.com&#x2F;en-us&#x2F;documentation&#x2F;articles&#x2F;virtual-machines-linux-introduction&#x2F;&quot;&gt;Introduction to Linux on
+Azure&lt;&#x2F;a&gt;&quot;
+I ended up just provisioning the VM with a password, and later I generated some
+SSH keys like so:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;ssh-keygen&lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt; -t&lt;&#x2F;span&gt;&lt;span&gt; rsa&lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt; -b&lt;&#x2F;span&gt;&lt;span&gt; 4096
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;ssh-copy-id&lt;&#x2F;span&gt;&lt;span style=&quot;color:#268bd2;&quot;&gt; -i&lt;&#x2F;span&gt;&lt;span&gt; id_rsa.pub &lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt;user&lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span&gt;@&lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt;DNS name&lt;&#x2F;span&gt;&lt;span style=&quot;color:#657b83;&quot;&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If you end up going my route, don&#x27;t forget to disable password login to the
+machine when you&#x27;re all done. You can do that by editing your &lt;code&gt;sshd_config&lt;&#x2F;code&gt;
+file.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;changing the line:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;PasswordAuthentication&lt;&#x2F;span&gt;&lt;span&gt; yes
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;to read:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; style=&quot;background-color:#002b36;color:#839496;&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span style=&quot;color:#b58900;&quot;&gt;PasswordAuthentication&lt;&#x2F;span&gt;&lt;span&gt; no
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Finally, you&#x27;ll want to restart the VM so that your changes will take effect.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

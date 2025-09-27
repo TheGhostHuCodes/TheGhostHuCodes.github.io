@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>The Ghost Hu Codes - hardware</title>
+    <subtitle>Senior Software Engineer</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://theghosthucodes.github.io/tags/hardware/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2016-01-13T00:00:00+00:00</updated>
+    <id>https://theghosthucodes.github.io/tags/hardware/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Building a mini-ITX machine</title>
+        <published>2016-01-13T00:00:00+00:00</published>
+        <updated>2016-01-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Yung-Jin (Joey) Hu
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://theghosthucodes.github.io/blog/building-a-mini-itx-machine/"/>
+        <id>https://theghosthucodes.github.io/blog/building-a-mini-itx-machine/</id>
+        
+        <content type="html" xml:base="https://theghosthucodes.github.io/blog/building-a-mini-itx-machine/">&lt;p&gt;It&#x27;s been a while since the last time I built a computer from scratch. I think
+it was in 2005. I say that because I remember a buddy of mine wanted me to play
+World of Warcraft with him and I needed a new rig to do that. Since then I&#x27;ve
+gradually upgraded some components (RAM, GPU, HDDs), but other than that It&#x27;s
+the same build as it was 10+ years ago.&lt;&#x2F;p&gt;
+&lt;p&gt;Time for a refresh. Here&#x27;s a list of components that I bought for my new rig:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Gigabyte Z170N-Gaming5 Motherboard&lt;&#x2F;li&gt;
+&lt;li&gt;Intel i5-6500 LGA 1151 3.2 GHz Skylake CPU&lt;&#x2F;li&gt;
+&lt;li&gt;Fractal Design Node 304 Case&lt;&#x2F;li&gt;
+&lt;li&gt;Seasonic G-Series 550 W PSU&lt;&#x2F;li&gt;
+&lt;li&gt;2x Corsair Vengeance LPX 8 GB 2666 MHz DDR4&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;And here are some parts that I scavenged from my old build to cut down on cost:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;MSi N630GT-MD1GD3 (NVIDIA GeForce GT630) GPU&lt;&#x2F;li&gt;
+&lt;li&gt;256 GB Samsung 840 EVO SSD&lt;&#x2F;li&gt;
+&lt;li&gt;2x 2 TB WD 7200 RPM HDDs&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The SSD is used for my OS and SWAP partitions, while the two HDDs are set up as
+a mirrored ZFS pool and mounted as my &lt;code&gt;&#x2F;home&lt;&#x2F;code&gt; directory.&lt;&#x2F;p&gt;
+&lt;p&gt;I chose to go with a mini-ITX build because I had never built one before, but I
+use to live with housemates who had these awesome shoebox sized rigs that fit
+on their desktop. They were actually mini-DTX builds, but close enough. Also, I
+thought it was finally time to get rid of my optical drive, and I really wanted
+to have USB3 ports as well.&lt;&#x2F;p&gt;
+&lt;p&gt;It being so long since I had built a computer from scratch, I did run into some
+issues. The first thing I did was mount my CPU on the motherboard and pop on
+the stock CPU fan that came with the processor. I then put the stand-offs into
+my new case and installed the motherboard. Next I installed my GPU, SSD, and
+RAM. I only added the OS drive to check to see that everything was working
+properly. Finally, I added in the PSU and wired the whole thing up.&lt;&#x2F;p&gt;
+&lt;p&gt;Installing the PSU into the Node 304 case was kind of annoying, so for the time
+being I left it sitting sideways in the case. If I had to do it all over again,
+I would recommend
+&lt;a href=&quot;http:&#x2F;&#x2F;www.tomshardware.com&#x2F;forum&#x2F;262730-31-breadboarding&quot;&gt;breadboarding&lt;&#x2F;a&gt; your
+build before putting it in the case. I had issues initially with putting
+everything on the motherboard all at once. After plugging everything in I turned
+on the power, and nothing happened. Turns out my issue was #6 on this listing
+of &lt;a href=&quot;http:&#x2F;&#x2F;www.tomshardware.com&#x2F;forum&#x2F;261145-31-perform-steps-posting-post-boot-video-problems&quot;&gt;things to do when your new build has post boot video
+problems&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I ended up disconnecting everything from the motherboard, putting in only one
+stick of RAM, and plugging in the DVI-D cable into the integrated graphics on
+the motherboard. This solved my initial problems. From there I was able to set
+an XMP profile, which was able to detect the correct RAM frequency properly in
+the BIOS. Then I was able to put in the second stick of RAM. From there I
+plugged in the GPU and switched my monitor over to that. At this point the
+whole build was still spread over most of my desk.&lt;&#x2F;p&gt;
+&lt;p&gt;When I tried to start putting things in their place, I noticed that the
+clearance between the PSU and the SATA-III ports were about 5 mm. There was no
+way that I was going to get a normal SATA cable to bend in that space. It&#x27;s
+certainly something to think about when putting the Z170N-Gaming5 motherboard
+in the Node 304 case. It turns out, what I needed was either &lt;a href=&quot;http:&#x2F;&#x2F;www.amazon.com&#x2F;gp&#x2F;product&#x2F;B005S0X2OI?psc=1&amp;amp;redirect=true&amp;amp;ref_=oh_aui_detailpage_o03_s00&quot;&gt;left-angle SATA
+cables&lt;&#x2F;a&gt;
+or &lt;a href=&quot;http:&#x2F;&#x2F;www.amazon.com&#x2F;gp&#x2F;product&#x2F;B0068Q59O2?psc=1&amp;amp;redirect=true&amp;amp;ref_=oh_aui_detailpage_o03_s00&quot;&gt;mini SATA
+cables&lt;&#x2F;a&gt;.
+I bought two of each, and plugged them all in, even though I only need 3,
+because I don&#x27;t want to have to remove the hard drives and PSU just to plug in
+a single SATA cable. For anyone considering a build with this motherboard and
+case combination, I recommend the mini SATA cables. They have sufficient bend
+in so that you can plug them into the SATA port without too much trouble.&lt;&#x2F;p&gt;
+&lt;p&gt;After all was said and done, I dropped Ubuntu 15.10 on it and ran Geekbench. My
+Geekbench 3 score came out at slightly over 3800 for single core performance.
+Not too bad. I&#x27;ll take it!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
