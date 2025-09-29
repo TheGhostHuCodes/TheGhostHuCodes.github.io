@@ -5,12 +5,6 @@ title = "About"
 section_path = "about/_index.md"  # Where to find your posts.
 +++
 
-<!-- --
-layout: page
-title: About Me
-permalink: /about/
---- -->
-
 Long before I made a living writing code, I was a nuclear chemist. I wrote a
 [thesis](https://escholarship.org/uc/item/9td288h6) and everything. Back then
 having a GitHub or StackOverflow account was an anomaly. Sharing code online?

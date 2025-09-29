@@ -1,6 +1,6 @@
 +++
 title = "Writing a Jekyll blog using a Docker container"
-description = "The one where I use docker to compile Jekyll sites."
+description = "The one in which I use docker to compile Jekyll sites."
 date = 2017-05-30
 
 [taxonomies]
