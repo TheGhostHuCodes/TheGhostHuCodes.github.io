@@ -31,16 +31,16 @@ class ThemeSwitcher {
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: light)").matches
     ) {
-      return "gruvbox-dark"; // Gruvbox for light mode users
+      return "solarized-dark"; // Gruvbox for light mode users
     } else if (
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
-      return "terminus"; // Terminus for dark mode users
+      return "solarized-dark"; // Terminus for dark mode users
     }
 
     // Fallback if no system preference detected
-    return "terminus";
+    return "solarized-dark";
   }
 
   init() {
@@ -56,9 +56,9 @@ class ThemeSwitcher {
         // Only auto-switch if user hasn't manually selected a theme
         if (!localStorage.getItem("theme")) {
           if (lightModeQuery.matches) {
-            this.applyTheme("gruvbox-dark");
+            this.applyTheme("solarized-dark");
           } else if (darkModeQuery.matches) {
-            this.applyTheme("terminus");
+            this.applyTheme("solarized-dark");
           }
         }
       };
