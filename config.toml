@@ -23,10 +23,10 @@ render_emoji = true
 bottom_footnotes = true
 
 [extra]
-# Put all your custom variables here
+layout = "center"
+show_default_author = false
 copy_button = true
 favicon_emoji = "🦀"
-layout = "center"
 main_menu = [
     { name = "blog", url = "blog", trailing_slash = true },
     { name = "about", url = "about", trailing_slash = true },
